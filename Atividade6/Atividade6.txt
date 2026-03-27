@@ -1,0 +1,23 @@
+Lista de Requisitos Funcionais
+
+RF01 - Fazer Login: O sistema deve permitir que todos os usuários façam login.
+
+RF02 - Fazer Logout: O sistema deve permitir que todos os usuários façam logout.
+
+RF03 - Recuperar Senha: O sistema deve permitir que os usuários recuperem a senha caso a tenham esquecido.
+
+RF04 - Realizar Matrícula: O sistema deve permitir que alunos e a secretaria realizem matrículas.
+
+RF05 - Solicitar Histórico: O sistema deve permitir que o aluno solicite seu histórico.
+
+RF06 - Solicitar Transferência: O sistema deve permitir que o aluno solicite transferência.
+
+RF07 - Consultar Notas e Frequência: O sistema deve permitir que o aluno consulte suas notas e frequência.
+
+RF08 - Aprovar Transferência: O sistema deve permitir que o funcionário da secretaria aprove as solicitações de transferência feitas pelos alunos.
+
+RF09 - Gerenciar Aluno: O sistema deve permitir que a secretaria cadastre, altere, exclua e consulte dados dos alunos.
+
+RF10 - Gerenciar Notas: O sistema deve permitir que o professor inclua, altere, exclua e consulte notas dos alunos.
+
+RF11 - Gerenciar Frequência: O sistema deve permitir que o professor inclua, altere, exclua e consulte a frequência dos alunos.
