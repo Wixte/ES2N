@@ -1,0 +1,266 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+abstract class Usuario {
+  - email: String
+  - senha: String
+  + fazerLogin(): void
+  + recuperarSenha(): void
+  + fazerLogout(): void
+}
+
+class Visitante {
+  + realizarCadastro(): void
+}
+
+class Cliente {
+  - nome: String
+  - cpf: String
+  - telefone: String
+  + gerenciarPerfil(): void
+  + solicitarAgendamento(): void
+  + alterarAgendamento(): void
+  + cancelarAgendamento(): void
+  + realizarPagamento(): void
+}
+
+class Funcionario {
+  - nome: String
+  - cpf: String
+  + confirmarAgendamento(): void
+  + gerenciarOrdemServico(): void
+  + lancarPagamento(): void
+}
+
+class Administrador {
+  + gerenciarServico(): void
+  + gerenciarHorarios(): void
+  + gerenciarFuncionario(): void
+  + gerarRelatorioOperacional(): void
+  + gerarRelatorioFaturamento(): void
+}
+
+class ModeloVeiculo {
+  - nome: String
+  - categoria: String
+  - multiplicador: Decimal
+}
+
+class Veiculo {
+  - placa: String
+  + cadastrar(): void
+  + atualizar(): void
+  + excluir(): void
+}
+
+class Servico {
+  - nome: String
+  - descricao: String
+  - tempoEstimado: Integer
+  - valor: Decimal
+}
+
+class HorarioDisponivel {
+  - data: Date
+  - horaInicio: Time
+  - horaFim: Time
+  - vagasDisponiveis: Integer
+}
+
+class Agendamento {
+  - dataHoraSolicitacao: DateTime
+  - status: StatusAgendamento
+  + calcularTempoEstimado(): void
+  + verificarAntecedenciaMinima(): Boolean
+}
+
+class OrdemServico {
+  - dataAbertura: Date
+  - status: StatusOS
+  - valorTotal: Decimal
+  + calcularValorTotal(): Decimal
+}
+
+class ItemOS {
+  - quantidade: Integer
+  - valorUnitario: Decimal
+  - desconto: Decimal
+  - subtotal: Decimal
+}
+
+class Pagamento {
+  - valorPago: Decimal
+  - meioPagamento: String
+  - dataPagamento: DateTime
+  - status: StatusPagamento
+  + processarPagamento(): void
+}
+
+class NotaFiscalServicoEletronica {
+    .. Metadados da API ..
+    - id : String
+    - chaveAcesso : String
+    - statusProcessamento : String
+    - codigoAutenticidade : String
+    - situacao : String
+    - numeroNotaSubstituida : Integer
+    - numeroNotaSubstituidora : Integer
+
+    .. Identificação da NFS-e (Gerada) ..
+    - numeroNfse : Integer
+    - dataHoraEmissaoNfse : DateTime
+
+    .. Identificação da DPS (Enviada) ..
+    - versao : String
+    - tipoAmbiente : Integer
+    - dataHoraEmissaoDps : DateTime
+    - versaoAplicativo : String
+    - serie : Integer
+    - numeroDps : Integer
+    - dataCompetencia : DateTime
+    - tipoEmitente : Integer
+    - codigoLocalEmissao : String
+
+    .. Substituição de Nota ..
+    - chaveNotaSubstituida : String
+    - codigoMotivoSubstituicao : Integer
+    - descricaoMotivoSubstituicao : String
+
+    .. Dados do Prestador ..
+    - cpfCnpjPrestador : String
+    - inscricaoMunicipalPrestador : String
+    - nomeRazaoSocialPrestador : String
+    - enderecoPrestador : String
+    - municipioPrestador : String
+    - cepPrestador : String
+    - telefonePrestador : String
+    - emailPrestador : String
+    - opcaoSimplesNacionalPrestador : Integer
+    - regimeEspecialTributacaoPrestador : Integer
+
+    .. Dados do Tomador ..
+    - cpfCnpjTomador : String
+    - inscricaoMunicipalTomador : String
+    - nomeRazaoSocialTomador : String
+    - cepTomador : String
+    - enderecoTomador : String
+    - municipioTomador : String
+    - telefoneTomador : String
+    - emailTomador : String
+
+    .. Dados do Intermediário ..
+    - cpfCnpjIntermediario : String
+    - nomeRazaoSocialIntermediario : String
+
+    .. Dados do Serviço ..
+    - codigoLocalPrestacaoServico : String
+    - paisPrestacaoServico : String
+    - paisResultadoPrestacaoServico : String
+    - municipioIncidenciaIssqn : String
+    - codigoTributacaoNacional : String
+    - codigoServicoEspecializado : String
+    - codigoTributacaoMunicipal : String
+    - descricaoServico : String
+    - codigoNbs : String
+    - informacoesComplementares : String
+
+    .. Composição do Valor ..
+    - valorServico : Decimal
+    - descontoIncondicionado : Decimal
+    - descontoCondicionado : Decimal
+    - totalDeducoes : Decimal
+    - valorLiquidoNfse : Decimal
+
+    .. Tributação Municipal (ISSQN) ..
+    - tributacaoIssqn : Integer
+    - tipoImunidade : String
+    - suspensaoExigibilidadeIssqn : String
+    - numeroProcessoSuspensao : String
+    - beneficioMunicipal : String
+    - baseCalculoIssqn : Decimal
+    - aliquotaIssqn : Decimal
+    - valorIssqnApurado : Decimal
+    - tipoRetencaoIssqn : Integer
+    - indicadorTotalTributos : Integer
+
+    .. Tributos Aproximados (Lei da Transparência) ..
+    - valorAproximadoTributosFederais : Decimal
+    - valorAproximadoTributosEstaduais : Decimal
+    - valorAproximadoTributosMunicipais : Decimal
+
+    .. Tributação Federal e Retenções ..
+    - cstPisCofins : String
+    - baseCalculoPisCofins : Decimal
+    - aliquotaPis : Decimal
+    - aliquotaCofins : Decimal
+    - valorPis : Decimal
+    - valorCofins : Decimal
+    - tipoRetencaoPisCofins : Integer
+    - valorRetidoCsll : Decimal
+    - valorRetidoIrrf : Decimal
+    - valorRetidoCp : Decimal
+
+    .. IBS e CBS ..
+    - finalidadeNfse : Integer
+    - indicadorConsumidorFinal : Integer
+    - codigoIndicadorOperacao : String
+    - indicadorDestinoOperacao : Integer
+    - cstIbsCbs : String
+    - codigoClassificacaoTributaria : String
+}
+
+class Notificacao {
+  - mensagem: String
+  - dataHoraEnvio: DateTime
+  - enviado: Boolean
+  + enviarNotificacao(): void
+}
+
+enum StatusAgendamento {
+  PENDENTE
+  CONFIRMADO
+  CANCELADO
+}
+
+enum StatusOS {
+  EM_ANDAMENTO
+  CONCLUIDA
+  PAGA
+}
+
+enum StatusPagamento {
+  AGUARDANDO
+  APROVADO
+  RECUSADO
+}
+
+Usuario <|-- Visitante
+Usuario <|-- Cliente
+Usuario <|-- Funcionario
+Funcionario <|-- Administrador
+
+Cliente "1" -- "0..*" Veiculo : possui >
+Veiculo "0..*" -- "1" ModeloVeiculo : pertence a >
+Cliente "1" -- "0..*" Agendamento : solicita >
+Veiculo "1" -- "0..*" Agendamento : associado a >
+Funcionario "1" -- "0..*" Agendamento : confirma >
+Funcionario "1" -- "0..*" OrdemServico : gerencia >
+
+Agendamento "1" -- "1..*" Servico : inclui >
+Agendamento "0..*" -- "1" HorarioDisponivel : alocado em >
+Agendamento "1" -- "0..1" OrdemServico : gera >
+
+OrdemServico "1" *-- "1..*" ItemOS
+Servico "1" --o "0..*" ItemOS
+
+OrdemServico "1" -- "0..1" Pagamento : possui >
+Pagamento "1" -- "0..1" NotaFiscalServicoEletronica : gera >
+
+Usuario "1" -- "0..*" Notificacao : recebe >
+
+Agendamento ..> StatusAgendamento
+OrdemServico ..> StatusOS
+Pagamento ..> StatusPagamento
+
+@enduml
